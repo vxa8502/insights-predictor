@@ -1,0 +1,22 @@
+# Python
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyc
+*$py.class
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+
+# Generated files
+artifacts/*.pkl
+plots/*.png
+plots/*.jpg
+data/Reviews.csv
+
+# IDE
+.vscode/
+.idea/
