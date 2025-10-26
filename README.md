@@ -18,7 +18,7 @@ Universal sentiment analysis system using Machine Learning. This system works wi
 ### 1. Clone the Repository
 Open your terminal app and type this:
 ```bash
-git clone <your-github-repo-url>
+git clone https://github.com/vxa8502/insights-predictor
 cd sentiment_analytics
 ```
 
