@@ -16,6 +16,8 @@ artifacts/*.pkl
 plots/*.png
 plots/*.jpg
 data/Reviews.csv
+data/temp_upload.csv
+data/*.csv
 
 # IDE
 .vscode/

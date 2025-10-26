@@ -7,7 +7,7 @@ import logging
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 
-from src.data_loader import AmazonDataLoader, ReviewData
+from src.data_loader import DataLoader, ReviewData
 from src.text_preprocessor import TextPreprocessor
 from src.models.sentiment_classifier import SentimentAnalyzer
 from src.visualizations.data_viz import DataVisualizer
@@ -27,8 +27,16 @@ def main():
     
     # 1. Load data
     logger.info("Step 1: Loading data...")
-    loader = AmazonDataLoader('data/Reviews.csv')
+    # Single flexible DataLoader works across all domains
+    loader = DataLoader('data/Reviews.csv')
     reviews, stats = loader.load_data(sample_size=20000, balance=True)
+
+    # Log field extraction info
+    logger.info(f"Dataset type detected: {stats['field_extraction']['dataset_type']}")
+    logger.info(f"Text field: '{stats['field_extraction']['text_column']}' "
+                f"(found by {stats['field_extraction']['text_found_by']})")
+    logger.info(f"Sentiment field: '{stats['field_extraction']['sentiment_column']}' "
+                f"(found by {stats['field_extraction']['sentiment_found_by']})")
     
     # 2. Preprocess text
     logger.info("Step 2: Preprocessing text...")
@@ -107,7 +115,7 @@ def main():
         logger.info(f"Text: '{text[:50]}...'")
         logger.info(f"  → Sentiment: {pred['sentiment']} (confidence: {pred['confidence']:.2f})")
     
-    logger.info("\n✔ Training complete! Check 'plots/' and 'artifacts/' directories.")
+    logger.info("\nTraining complete! Check 'plots/' and 'artifacts/' directories.")
 
 if __name__ == "__main__":
     main()

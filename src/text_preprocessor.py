@@ -104,16 +104,20 @@ class TextPreprocessor:
 
 # Test the preprocessor
 if __name__ == "__main__":
+    import logging
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logger = logging.getLogger(__name__)
+
     processor = TextPreprocessor()
-    
+
     # Test with product review
     sample = """
     I have bought several of the Vitality canned dog food products and have found them all to be of good quality. The product looks more like a stew than a processed meat and it smells better. My Labrador is finicky and she appreciates  this product better than most.
     """
-    
-    print("Original text:")
-    print(sample)
-    print("\nPreprocessed text:")
-    print(processor.preprocess(sample))
-    print("\nExtracted features:")
-    print(processor.extract_features(sample))
+
+    logger.info("Original text:")
+    logger.info(sample)
+    logger.info("\nPreprocessed text:")
+    logger.info(processor.preprocess(sample))
+    logger.info("\nExtracted features:")
+    logger.info(processor.extract_features(sample))

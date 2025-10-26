@@ -15,7 +15,7 @@ from sklearn.metrics import (accuracy_score, precision_score, recall_score,
 from sklearn.model_selection import train_test_split
 import joblib
 import logging
-from typing import Dict, List, Tuple, Any
+from typing import Dict, List, Tuple, Any, Optional
 from dataclasses import dataclass
 import time
 
@@ -32,7 +32,7 @@ class ModelResult:
     training_time: float
     prediction_time: float
     predictions: np.ndarray
-    roc_auc: float = None  # Added ROC-AUC field
+    roc_auc: Optional[float] = None  # Added ROC-AUC field
 
 
 class SentimentAnalyzer:
@@ -390,17 +390,18 @@ if __name__ == "__main__":
         format='%(levelname)s: %(message)s'
     )
     
-    print("SENTIMENT ANALYZER - READY")
-    print("\nThis module provides a complete sentiment analysis system with:")
-    print("  ✔ Three ML algorithms (Naive Bayes, Logistic Regression, Random Forest)")
-    print("  ✔ Automatic model comparison and selection")
-    print("  ✔ Prediction with confidence scores")
-    print("  ✔ ROC-AUC evaluation metric")
-    print("  ✔ Model persistence (save/load)")
-    print("\nIntegrate with your data_loader.py and text_preprocessor.py:")
-    print("  from sentiment_classifier import SentimentAnalyzer")
-    print("  analyzer = SentimentAnalyzer(vectorizer_type='tfidf')")
-    print("  X_train, y_train = analyzer.prepare_data(train_texts, train_labels)")
-    print("  X_test, y_test = analyzer.prepare_data(test_texts, test_labels, fit_vectorizer=False)")
-    print("  results = analyzer.train_all_models(X_train, y_train, X_test, y_test)")
-    print("  best_model_name, best_model = analyzer.get_best_model(metric='roc_auc')")
+    logger = logging.getLogger(__name__)
+    logger.info("SENTIMENT ANALYZER - READY")
+    logger.info("\nThis module provides a complete sentiment analysis system with:")
+    logger.info("  - Three ML algorithms (Naive Bayes, Logistic Regression, Random Forest)")
+    logger.info("  - Automatic model comparison and selection")
+    logger.info("  - Prediction with confidence scores")
+    logger.info("  - ROC-AUC evaluation metric")
+    logger.info("  - Model persistence (save/load)")
+    logger.info("\nIntegrate with your data_loader.py and text_preprocessor.py:")
+    logger.info("  from sentiment_classifier import SentimentAnalyzer")
+    logger.info("  analyzer = SentimentAnalyzer(vectorizer_type='tfidf')")
+    logger.info("  X_train, y_train = analyzer.prepare_data(train_texts, train_labels)")
+    logger.info("  X_test, y_test = analyzer.prepare_data(test_texts, test_labels, fit_vectorizer=False)")
+    logger.info("  results = analyzer.train_all_models(X_train, y_train, X_test, y_test)")
+    logger.info("  best_model_name, best_model = analyzer.get_best_model(metric='roc_auc')")
