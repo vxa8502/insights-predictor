@@ -18,7 +18,7 @@ Universal sentiment analysis system using Machine Learning. This system works wi
 ### 1. Clone the Repository
 Open your terminal app and type this:
 ```bash
-git clone <your-github-repo-url>
+git clone https://github.com/vxa8502/insights-predictor
 cd sentiment_analytics
 ```
 
@@ -92,11 +92,12 @@ This system automatically works with multiple review dataset formats:
 - **Binary:** 0/1, True/False
 
 ### Download Dataset
-The dataset is NOT in the repo (because it's too large).
+The dataset we have been using is NOT in the repo (because it's too large).
 
 Download the Amazon Reviews dataset and place the CSV file in `data/Reviews.csv`.
 
-The link was shared on Teams.
+[The link was shared on Teams.
+](https://www.kaggle.com/datasets/yasserh/amazon-product-reviews-dataset)
 
 You can also use any other review dataset - the system will automatically detect the columns!
 
