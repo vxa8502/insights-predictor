@@ -21,6 +21,7 @@ from src.text_preprocessor import TextPreprocessor
 from src.models.sentiment_classifier import SentimentAnalyzer
 from src.visualizations.data_viz import DataVisualizer
 from src.visualizations.model_viz import ModelVisualizer
+from src.field_extractor import extract_text_field
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -470,8 +471,9 @@ elif page == "Make Predictions":
             st.subheader("Upload CSV for Batch Predictions")
 
             st.markdown("""
-            Upload a CSV file with a **'Text'** column containing reviews to analyze.
-            The system will predict sentiment for each review.
+            Upload a CSV file containing reviews to analyze.
+            The system will automatically detect the text column (supports: text, review_text, content, review, comment, etc.)
+            and predict sentiment for each review.
             """)
 
             batch_file = st.file_uploader(
@@ -487,18 +489,24 @@ elif page == "Make Predictions":
 
                     st.success(f"Loaded {len(df_batch)} reviews")
 
-                    # Verify column
-                    if 'Text' not in df_batch.columns:
-                        st.error("CSV must have a 'Text' column")
-                    else:
+                    # Use flexible field extraction to find text column
+                    try:
+                        text_column, extraction_result = extract_text_field(df_batch, fallback_position=0)
+
+                        # Show which column was detected
+                        if extraction_result.found_by == 'name':
+                            st.info(f"✓ Detected text column: **'{text_column}'**")
+                        else:
+                            st.info(f"✓ Using column **'{text_column}'** (position {extraction_result.position}) as text field")
+
                         # Show preview
                         st.markdown("**Preview:**")
                         st.dataframe(df_batch.head(), use_container_width=True)
 
                         if st.button("Predict All", type="primary", use_container_width=True):
                             with st.spinner("Making predictions..."):
-                                # Preprocess all texts
-                                texts = df_batch['Text'].astype(str).tolist()
+                                # Preprocess all texts using detected column
+                                texts = df_batch[text_column].astype(str).tolist()
                                 preprocessed = [st.session_state.preprocessor.preprocess(t) for t in texts]
 
                                 # Predict
@@ -542,6 +550,10 @@ elif page == "Make Predictions":
                                     mime="text/csv",
                                     use_container_width=True
                                 )
+
+                    except ValueError as e:
+                        st.error(f"Could not find text column in CSV: {str(e)}")
+                        st.markdown("**Available columns:** " + ", ".join(df_batch.columns))
 
                 except Exception as e:
                     st.error(f"Error processing batch predictions: {str(e)}")
