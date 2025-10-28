@@ -19,7 +19,7 @@ Universal sentiment analysis system using Machine Learning. This system works wi
 Open your terminal app and type this:
 ```bash
 git clone https://github.com/vxa8502/insights-predictor
-cd sentiment_analytics
+cd insights-predictor
 ```
 
 ### 2. Create Virtual Environment
