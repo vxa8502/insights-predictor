@@ -15,6 +15,15 @@ Universal sentiment analysis system using Machine Learning. This system works wi
 
 ## Setup Instructions
 
+### Prerequisites (Windows)
+- Terminal access: https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-US&gl=US
+- Python is intalled: https://apps.microsoft.com/detail/9pnrbtzxmb4z?hl=en-US&gl=US
+- Permission to run scripts:
+  - Open PowerSheel with Run as Administrator
+  - Then, run command:
+    ``` Set-ExecutionPolicy -ExecutionPolicy RemoteSigned```
+  - Type Y and press Enter   
+
 ### 1. Clone the Repository
 Open your terminal app and type this:
 ```bash
