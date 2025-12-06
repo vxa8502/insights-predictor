@@ -495,9 +495,9 @@ elif page == "Make Predictions":
 
                         # Show which column was detected
                         if extraction_result.found_by == 'name':
-                            st.info(f"✓ Detected text column: **'{text_column}'**")
+                            st.info(f"Detected text column: **'{text_column}'**")
                         else:
-                            st.info(f"✓ Using column **'{text_column}'** (position {extraction_result.position}) as text field")
+                            st.info(f"Using column **'{text_column}'** (position {extraction_result.position}) as text field")
 
                         # Show preview
                         st.markdown("**Preview:**")

@@ -51,13 +51,17 @@ class FieldExtractor:
     3. Return metadata about how the field was found
     """
 
-    # Pre-defined text field mappings - handles 12 different naming conventions
+    # Pre-defined text field mappings - handles many different naming conventions
     # Note: "description" removed - too generic, often refers to product descriptions not reviews
     TEXT_FIELDS = FieldMapping(
         "text",
         "content",
         "review_text",
+        "reviewtext",
         "review",
+        "reviewbody",
+        "review body",
+        "review text",  # Space variant
         "comment",
         "tweet_text",
         "tweet",
@@ -65,10 +69,14 @@ class FieldExtractor:
         "post",
         "body",
         "summary",
-        "reviews.text"
+        "reviews.text",
+        "review_comment",
+        "customer_review",
+        "review/text",  # Slash notation
+        "review_text"
     )
 
-    # Pre-defined sentiment/label field mappings - handles 11 different conventions
+    # Pre-defined sentiment/label field mappings - handles many different conventions
     SENTIMENT_FIELDS = FieldMapping(
         "sentiment",
         "label",
@@ -80,7 +88,13 @@ class FieldExtractor:
         "emotion",
         "grade",
         "overall",
-        "reviews.rating"
+        "reviews.rating",
+        "overall_rating",
+        "overallrating",
+        "recommended",
+        "stars",
+        "review/score",  # Slash notation
+        "review_score"
     )
 
     def __init__(self):

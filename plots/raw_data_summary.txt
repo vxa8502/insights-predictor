@@ -1,0 +1,52 @@
+
+================================================================================
+                    RAW DATA SUMMARY - EXPLORATORY DATA ANALYSIS
+================================================================================
+
+DATASET OVERVIEW:
+  - Total Records: 568,454
+  - Total Columns: 13
+  - Text Column: 'Text'
+  - Rating Column: 'Score'
+
+RATING DISTRIBUTION:
+  - 1 Stars: 52,268 (9.19%)
+  - 2 Stars: 29,769 (5.24%)
+  - 3 Stars: 42,640 (7.50%)
+  - 4 Stars: 80,655 (14.19%)
+  - 5 Stars: 363,122 (63.88%)
+
+SENTIMENT CLASS DISTRIBUTION:
+  - Positive: 443,777 (78.07%)
+  - Negative: 82,037 (14.43%)
+  - Neutral: 42,640 (7.50%)
+  - Imbalance Ratio: 5.41:1
+
+TEXT LENGTH STATISTICS:
+  - Mean Length: 436 characters
+  - Median Length: 302 characters
+  - Min Length: 12 characters
+  - Max Length: 21409 characters
+  - Mean Word Count: 80 words
+
+DATA QUALITY ISSUES:
+  - Reviews with HTML: 147,324 (25.92%)
+  - Reviews with special chars: 269,411 (47.39%)
+  - Very short reviews (<10 chars): 0 (0.00%)
+  - Null reviews: 0 (0.00%)
+  - Empty reviews: 0 (0.00%)
+
+KEY INSIGHTS:
+  1. Class Imbalance: The dataset shows significant class imbalance (5.41:1)
+     → This will require balancing techniques during model training
+  
+  2. Data Quality: HTML and special characters present
+     → Text preprocessing pipeline needed to clean data
+  
+  3. Neutral Reviews: 42,640 neutral (3-star) reviews will be excluded
+     → Focusing on clear positive/negative sentiment improves model clarity
+  
+  4. Text Length Correlation: Rating and text length correlation = -0.077
+     → Negative reviews tend to be longer
+
+================================================================================

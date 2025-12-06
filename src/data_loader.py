@@ -64,13 +64,26 @@ class DataLoader:
         """
         self.logger.info(f"Loading data from {self.file_path}")
 
-        # Read CSV
-        df = pd.read_csv(
-            self.file_path,
-            encoding='utf-8',
-            on_bad_lines='skip',
-            low_memory=False
-        )
+        # Read CSV with multiple encoding attempts for robustness
+        encodings = ['utf-8', 'latin-1', 'iso-8859-1', 'cp1252']
+        df = None
+
+        for encoding in encodings:
+            try:
+                df = pd.read_csv(
+                    self.file_path,
+                    encoding=encoding,
+                    on_bad_lines='skip',
+                    low_memory=False
+                )
+                if encoding != 'utf-8':
+                    self.logger.info(f"Loaded with {encoding} encoding")
+                break
+            except UnicodeDecodeError:
+                continue
+
+        if df is None:
+            raise ValueError(f"Could not read file with any encoding: {encodings}")
 
         self.logger.info(f"Loaded {len(df)} total records")
         self.stats['total_records'] = len(df)
