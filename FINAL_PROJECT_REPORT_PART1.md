@@ -1,6 +1,6 @@
 # Final Project Report - Part I: Changes Based on Presentation Feedback
 
-**Course:** BANA 4325 - Business Analytics
+**Course:** INSY 4325 - Business Analytics
 **Project:** Sentiment Analysis Predictive System
 **Date:** December 2024
 
@@ -602,10 +602,10 @@ All three pieces of professor feedback have been fully addressed:
 
 3. **Cross-Domain Analysis Implemented:** Systematic `cross_domain_analysis.py` framework evaluates model generalization across 10 diverse review domains, identifying the best universal model and quantifying performance gaps
 
-These improvements demonstrate proper data science methodology, address real-world deployment questions about model generalization, and make our system more transparent, understandable, and academically rigorous for a BANA 4325 final project.
+These improvements demonstrate proper data science methodology, address real-world deployment questions about model generalization, and make our system more transparent, understandable, and academically rigorous for an INSY 4325 final project.
 
 ---
 
-**Authors:** BANA 4325 Final Project Team
+**Authors:** INSY 4325 Final Project Team
 **Date:** December 2024
 **Status:** All feedback addressed and implemented

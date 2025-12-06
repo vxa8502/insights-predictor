@@ -1,10 +1,22 @@
 # Python
 venv/
 env/
+ENV/
+.venv/
 __pycache__/
 *.py[cod]
 *.pyc
 *$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+*/.ipynb_checkpoints/*
 
 # OS files
 .DS_Store
@@ -28,3 +40,16 @@ cross_domain_log.txt
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Environment variables
+.env
+.env.local

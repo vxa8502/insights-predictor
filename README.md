@@ -91,14 +91,18 @@ You should see the file listed with a size of approximately 280-300 MB.
 ### 6. Run Exploratory Data Analysis (Optional)
 View raw data analysis before training:
 ```bash
-# Install Jupyter if not already installed
-pip install jupyter
-
 # Run the EDA notebook
 jupyter notebook exploratory_data_analysis.ipynb
 ```
 
-Execute all cells to generate raw data visualizations in the `plots/` folder.
+**What to expect:**
+- A browser window will automatically open at `http://localhost:8888/notebooks/exploratory_data_analysis.ipynb`
+- You'll see the Jupyter notebook interface with code cells and markdown
+- Click "Cell" → "Run All" from the menu to execute all cells
+- The notebook will generate raw data visualizations and save them to the `plots/` folder
+- When done, press `Ctrl+C` in the terminal to stop the Jupyter server
+
+**Note:** The word frequency plots in this notebook show *raw unprocessed text*, so you'll see common stopwords like "the", "and", "is" dominating the charts. This is expected! The more interesting word frequencies and visualizations appear after text preprocessing when you run the training pipeline in step 7.
 
 ### 7. Verify Installation
 Test the training pipeline:
