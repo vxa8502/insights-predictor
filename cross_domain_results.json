@@ -1,0 +1,513 @@
+{
+  "timestamp": "2025-12-06T15:47:15.938579",
+  "domains": [
+    "Airline Review",
+    "Ba Airlinereviews",
+    "Tripadvisor Hotel Reviews",
+    "Womens Clothing E-Commerce Reviews",
+    "Disneylandreviews",
+    "User Reviews",
+    "Mcdonald S Reviews"
+  ],
+  "results_matrix": {
+    "Airline Review": {
+      "Airline Review": {
+        "accuracy": 0.8176895306859205,
+        "precision": 0.8013698630136986,
+        "recall": 0.8447653429602888,
+        "f1_score": 0.8224956063268892,
+        "roc_auc": 0.88712220933415,
+        "model_used": "Naive Bayes",
+        "test_samples": 554
+      },
+      "Ba Airlinereviews": {
+        "accuracy": 0.7771317829457365,
+        "precision": 0.716012084592145,
+        "recall": 0.9186046511627907,
+        "f1_score": 0.8047538200339559,
+        "roc_auc": 0.8865302565951565,
+        "model_used": "Naive Bayes",
+        "test_samples": 516
+      },
+      "Tripadvisor Hotel Reviews": {
+        "accuracy": 0.7363344051446945,
+        "precision": 0.7159763313609467,
+        "recall": 0.7806451612903226,
+        "f1_score": 0.7469135802469136,
+        "roc_auc": 0.8081472291149712,
+        "model_used": "Naive Bayes",
+        "test_samples": 311
+      },
+      "Womens Clothing E-Commerce Reviews": {
+        "accuracy": 0.5939086294416244,
+        "precision": 0.5576923076923077,
+        "recall": 0.8877551020408163,
+        "f1_score": 0.6850393700787402,
+        "roc_auc": 0.6598639455782312,
+        "model_used": "Naive Bayes",
+        "test_samples": 197
+      },
+      "Disneylandreviews": {
+        "accuracy": 0.6871165644171779,
+        "precision": 0.7777777777777778,
+        "recall": 0.5185185185185185,
+        "f1_score": 0.6222222222222222,
+        "roc_auc": 0.7938873833182776,
+        "model_used": "Naive Bayes",
+        "test_samples": 163
+      },
+      "User Reviews": {
+        "accuracy": 0.6273764258555133,
+        "precision": 0.8018018018018018,
+        "recall": 0.33840304182509506,
+        "f1_score": 0.47593582887700536,
+        "roc_auc": 0.7024967832410473,
+        "model_used": "Naive Bayes",
+        "test_samples": 526
+      },
+      "Mcdonald S Reviews": {
+        "accuracy": 0.7650130548302873,
+        "precision": 0.7556675062972292,
+        "recall": 0.783289817232376,
+        "f1_score": 0.7692307692307693,
+        "roc_auc": 0.8639809392660662,
+        "model_used": "Naive Bayes",
+        "test_samples": 766
+      }
+    },
+    "Ba Airlinereviews": {
+      "Airline Review": {
+        "accuracy": 0.8194945848375451,
+        "precision": 0.8241758241758241,
+        "recall": 0.8122743682310469,
+        "f1_score": 0.8181818181818182,
+        "roc_auc": 0.8692671610473225,
+        "model_used": "Logistic Regression",
+        "test_samples": 554
+      },
+      "Ba Airlinereviews": {
+        "accuracy": 0.8585271317829457,
+        "precision": 0.8714859437751004,
+        "recall": 0.8410852713178295,
+        "f1_score": 0.8560157790927022,
+        "roc_auc": 0.9465927528393727,
+        "model_used": "Logistic Regression",
+        "test_samples": 516
+      },
+      "Tripadvisor Hotel Reviews": {
+        "accuracy": 0.7877813504823151,
+        "precision": 0.7109004739336493,
+        "recall": 0.967741935483871,
+        "f1_score": 0.819672131147541,
+        "roc_auc": 0.8979735318444996,
+        "model_used": "Logistic Regression",
+        "test_samples": 311
+      },
+      "Womens Clothing E-Commerce Reviews": {
+        "accuracy": 0.5329949238578681,
+        "precision": 0.5217391304347826,
+        "recall": 0.7346938775510204,
+        "f1_score": 0.6101694915254238,
+        "roc_auc": 0.6022469593898165,
+        "model_used": "Logistic Regression",
+        "test_samples": 197
+      },
+      "Disneylandreviews": {
+        "accuracy": 0.7484662576687117,
+        "precision": 0.7857142857142857,
+        "recall": 0.6790123456790124,
+        "f1_score": 0.7284768211920529,
+        "roc_auc": 0.8517012947907256,
+        "model_used": "Logistic Regression",
+        "test_samples": 163
+      },
+      "User Reviews": {
+        "accuracy": 0.7091254752851711,
+        "precision": 0.7350427350427351,
+        "recall": 0.6539923954372624,
+        "f1_score": 0.6921529175050302,
+        "roc_auc": 0.765906692304356,
+        "model_used": "Logistic Regression",
+        "test_samples": 526
+      },
+      "Mcdonald S Reviews": {
+        "accuracy": 0.8067885117493473,
+        "precision": 0.7777777777777778,
+        "recall": 0.8590078328981723,
+        "f1_score": 0.8163771712158809,
+        "roc_auc": 0.9065062819979686,
+        "model_used": "Logistic Regression",
+        "test_samples": 766
+      }
+    },
+    "Tripadvisor Hotel Reviews": {
+      "Airline Review": {
+        "accuracy": 0.6606498194945848,
+        "precision": 0.7908496732026143,
+        "recall": 0.4368231046931408,
+        "f1_score": 0.5627906976744186,
+        "roc_auc": 0.8106843566317821,
+        "model_used": "Naive Bayes",
+        "test_samples": 554
+      },
+      "Ba Airlinereviews": {
+        "accuracy": 0.7364341085271318,
+        "precision": 0.9178082191780822,
+        "recall": 0.5193798449612403,
+        "f1_score": 0.6633663366336634,
+        "roc_auc": 0.9124000961480679,
+        "model_used": "Naive Bayes",
+        "test_samples": 516
+      },
+      "Tripadvisor Hotel Reviews": {
+        "accuracy": 0.9067524115755627,
+        "precision": 0.9038461538461539,
+        "recall": 0.9096774193548387,
+        "f1_score": 0.9067524115755627,
+        "roc_auc": 0.9636889991728702,
+        "model_used": "Naive Bayes",
+        "test_samples": 311
+      },
+      "Womens Clothing E-Commerce Reviews": {
+        "accuracy": 0.7106598984771574,
+        "precision": 0.7303370786516854,
+        "recall": 0.6632653061224489,
+        "f1_score": 0.6951871657754011,
+        "roc_auc": 0.7645846217274789,
+        "model_used": "Naive Bayes",
+        "test_samples": 197
+      },
+      "Disneylandreviews": {
+        "accuracy": 0.8220858895705522,
+        "precision": 0.8513513513513513,
+        "recall": 0.7777777777777778,
+        "f1_score": 0.8129032258064516,
+        "roc_auc": 0.9122252333634447,
+        "model_used": "Naive Bayes",
+        "test_samples": 163
+      },
+      "User Reviews": {
+        "accuracy": 0.7015209125475285,
+        "precision": 0.823170731707317,
+        "recall": 0.5133079847908745,
+        "f1_score": 0.6323185011709602,
+        "roc_auc": 0.7657042894938484,
+        "model_used": "Naive Bayes",
+        "test_samples": 526
+      },
+      "Mcdonald S Reviews": {
+        "accuracy": 0.825065274151436,
+        "precision": 0.8608695652173913,
+        "recall": 0.7754569190600522,
+        "f1_score": 0.8159340659340659,
+        "roc_auc": 0.9062676819666096,
+        "model_used": "Naive Bayes",
+        "test_samples": 766
+      }
+    },
+    "Womens Clothing E-Commerce Reviews": {
+      "Airline Review": {
+        "accuracy": 0.6010830324909747,
+        "precision": 0.6944444444444444,
+        "recall": 0.36101083032490977,
+        "f1_score": 0.4750593824228028,
+        "roc_auc": 0.6713107169388366,
+        "model_used": "Logistic Regression",
+        "test_samples": 554
+      },
+      "Ba Airlinereviews": {
+        "accuracy": 0.6472868217054264,
+        "precision": 0.8518518518518519,
+        "recall": 0.35658914728682173,
+        "f1_score": 0.5027322404371585,
+        "roc_auc": 0.7209452556937684,
+        "model_used": "Logistic Regression",
+        "test_samples": 516
+      },
+      "Tripadvisor Hotel Reviews": {
+        "accuracy": 0.752411575562701,
+        "precision": 0.76,
+        "recall": 0.7354838709677419,
+        "f1_score": 0.7475409836065574,
+        "roc_auc": 0.8295285359801489,
+        "model_used": "Logistic Regression",
+        "test_samples": 311
+      },
+      "Womens Clothing E-Commerce Reviews": {
+        "accuracy": 0.868020304568528,
+        "precision": 0.8461538461538461,
+        "recall": 0.8979591836734694,
+        "f1_score": 0.8712871287128713,
+        "roc_auc": 0.9336219336219337,
+        "model_used": "Logistic Regression",
+        "test_samples": 197
+      },
+      "Disneylandreviews": {
+        "accuracy": 0.6809815950920245,
+        "precision": 0.7735849056603774,
+        "recall": 0.5061728395061729,
+        "f1_score": 0.6119402985074627,
+        "roc_auc": 0.8017163504968382,
+        "model_used": "Logistic Regression",
+        "test_samples": 163
+      },
+      "User Reviews": {
+        "accuracy": 0.6977186311787072,
+        "precision": 0.7857142857142857,
+        "recall": 0.5437262357414449,
+        "f1_score": 0.6426966292134831,
+        "roc_auc": 0.7408304298168256,
+        "model_used": "Logistic Regression",
+        "test_samples": 526
+      },
+      "Mcdonald S Reviews": {
+        "accuracy": 0.695822454308094,
+        "precision": 0.8125,
+        "recall": 0.5091383812010444,
+        "f1_score": 0.6260032102728732,
+        "roc_auc": 0.7843737430891206,
+        "model_used": "Logistic Regression",
+        "test_samples": 766
+      }
+    },
+    "Disneylandreviews": {
+      "Airline Review": {
+        "accuracy": 0.703971119133574,
+        "precision": 0.775609756097561,
+        "recall": 0.5740072202166066,
+        "f1_score": 0.6597510373443983,
+        "roc_auc": 0.7844752310078328,
+        "model_used": "Logistic Regression",
+        "test_samples": 554
+      },
+      "Ba Airlinereviews": {
+        "accuracy": 0.7306201550387597,
+        "precision": 0.9280575539568345,
+        "recall": 0.5,
+        "f1_score": 0.6498740554156172,
+        "roc_auc": 0.8584069466979147,
+        "model_used": "Logistic Regression",
+        "test_samples": 516
+      },
+      "Tripadvisor Hotel Reviews": {
+        "accuracy": 0.8167202572347267,
+        "precision": 0.788235294117647,
+        "recall": 0.864516129032258,
+        "f1_score": 0.8246153846153846,
+        "roc_auc": 0.9216708023159637,
+        "model_used": "Logistic Regression",
+        "test_samples": 311
+      },
+      "Womens Clothing E-Commerce Reviews": {
+        "accuracy": 0.6192893401015228,
+        "precision": 0.5827338129496403,
+        "recall": 0.826530612244898,
+        "f1_score": 0.6835443037974683,
+        "roc_auc": 0.7512883941455369,
+        "model_used": "Logistic Regression",
+        "test_samples": 197
+      },
+      "Disneylandreviews": {
+        "accuracy": 0.9141104294478528,
+        "precision": 0.9036144578313253,
+        "recall": 0.9259259259259259,
+        "f1_score": 0.9146341463414634,
+        "roc_auc": 0.9724480578139114,
+        "model_used": "Logistic Regression",
+        "test_samples": 163
+      },
+      "User Reviews": {
+        "accuracy": 0.6673003802281369,
+        "precision": 0.6617647058823529,
+        "recall": 0.6844106463878327,
+        "f1_score": 0.6728971962616822,
+        "roc_auc": 0.7392618080353914,
+        "model_used": "Logistic Regression",
+        "test_samples": 526
+      },
+      "Mcdonald S Reviews": {
+        "accuracy": 0.8028720626631853,
+        "precision": 0.7788461538461539,
+        "recall": 0.8459530026109661,
+        "f1_score": 0.8110137672090113,
+        "roc_auc": 0.8869138108515293,
+        "model_used": "Logistic Regression",
+        "test_samples": 766
+      }
+    },
+    "User Reviews": {
+      "Airline Review": {
+        "accuracy": 0.6714801444043321,
+        "precision": 0.6266666666666667,
+        "recall": 0.8483754512635379,
+        "f1_score": 0.7208588957055214,
+        "roc_auc": 0.721643707072945,
+        "model_used": "Logistic Regression",
+        "test_samples": 554
+      },
+      "Ba Airlinereviews": {
+        "accuracy": 0.7209302325581395,
+        "precision": 0.6875,
+        "recall": 0.810077519379845,
+        "f1_score": 0.7437722419928826,
+        "roc_auc": 0.8251457244156001,
+        "model_used": "Logistic Regression",
+        "test_samples": 516
+      },
+      "Tripadvisor Hotel Reviews": {
+        "accuracy": 0.5627009646302251,
+        "precision": 0.5326460481099656,
+        "recall": 1.0,
+        "f1_score": 0.695067264573991,
+        "roc_auc": 0.8364764267990074,
+        "model_used": "Logistic Regression",
+        "test_samples": 311
+      },
+      "Womens Clothing E-Commerce Reviews": {
+        "accuracy": 0.5532994923857868,
+        "precision": 0.5274725274725275,
+        "recall": 0.9795918367346939,
+        "f1_score": 0.6857142857142857,
+        "roc_auc": 0.8138528138528139,
+        "model_used": "Logistic Regression",
+        "test_samples": 197
+      },
+      "Disneylandreviews": {
+        "accuracy": 0.656441717791411,
+        "precision": 0.5939849624060151,
+        "recall": 0.9753086419753086,
+        "f1_score": 0.7383177570093458,
+        "roc_auc": 0.8912978018669077,
+        "model_used": "Logistic Regression",
+        "test_samples": 163
+      },
+      "User Reviews": {
+        "accuracy": 0.8745247148288974,
+        "precision": 0.8862745098039215,
+        "recall": 0.8593155893536122,
+        "f1_score": 0.8725868725868726,
+        "roc_auc": 0.9297228527230406,
+        "model_used": "Logistic Regression",
+        "test_samples": 526
+      },
+      "Mcdonald S Reviews": {
+        "accuracy": 0.643603133159269,
+        "precision": 0.5892857142857143,
+        "recall": 0.9477806788511749,
+        "f1_score": 0.7267267267267268,
+        "roc_auc": 0.8004178909120656,
+        "model_used": "Logistic Regression",
+        "test_samples": 766
+      }
+    },
+    "Mcdonald S Reviews": {
+      "Airline Review": {
+        "accuracy": 0.7111913357400722,
+        "precision": 0.7969543147208121,
+        "recall": 0.5667870036101083,
+        "f1_score": 0.6624472573839663,
+        "roc_auc": 0.8332312424246374,
+        "model_used": "Naive Bayes",
+        "test_samples": 554
+      },
+      "Ba Airlinereviews": {
+        "accuracy": 0.7635658914728682,
+        "precision": 0.9857142857142858,
+        "recall": 0.5348837209302325,
+        "f1_score": 0.6934673366834171,
+        "roc_auc": 0.914458265729223,
+        "model_used": "Naive Bayes",
+        "test_samples": 516
+      },
+      "Tripadvisor Hotel Reviews": {
+        "accuracy": 0.8520900321543409,
+        "precision": 0.8187134502923976,
+        "recall": 0.9032258064516129,
+        "f1_score": 0.8588957055214724,
+        "roc_auc": 0.937799834574028,
+        "model_used": "Naive Bayes",
+        "test_samples": 311
+      },
+      "Womens Clothing E-Commerce Reviews": {
+        "accuracy": 0.6903553299492385,
+        "precision": 0.6907216494845361,
+        "recall": 0.6836734693877551,
+        "f1_score": 0.6871794871794872,
+        "roc_auc": 0.7582972582972584,
+        "model_used": "Naive Bayes",
+        "test_samples": 197
+      },
+      "Disneylandreviews": {
+        "accuracy": 0.7668711656441718,
+        "precision": 0.8771929824561403,
+        "recall": 0.6172839506172839,
+        "f1_score": 0.7246376811594203,
+        "roc_auc": 0.8879855465221319,
+        "model_used": "Naive Bayes",
+        "test_samples": 163
+      },
+      "User Reviews": {
+        "accuracy": 0.6863117870722434,
+        "precision": 0.745,
+        "recall": 0.5665399239543726,
+        "f1_score": 0.6436285097192225,
+        "roc_auc": 0.7509071983113822,
+        "model_used": "Naive Bayes",
+        "test_samples": 526
+      },
+      "Mcdonald S Reviews": {
+        "accuracy": 0.8864229765013055,
+        "precision": 0.9180790960451978,
+        "recall": 0.8485639686684073,
+        "f1_score": 0.8819538670284939,
+        "roc_auc": 0.95241633660329,
+        "model_used": "Naive Bayes",
+        "test_samples": 766
+      }
+    }
+  },
+  "domain_info": {
+    "Airline Review": {
+      "train_samples": 2212,
+      "test_samples": 554,
+      "text_column": "Review",
+      "sentiment_column": "Overall_Rating"
+    },
+    "Ba Airlinereviews": {
+      "train_samples": 2062,
+      "test_samples": 516,
+      "text_column": "ReviewBody",
+      "sentiment_column": "OverallRating"
+    },
+    "Tripadvisor Hotel Reviews": {
+      "train_samples": 1241,
+      "test_samples": 311,
+      "text_column": "Review",
+      "sentiment_column": "Rating"
+    },
+    "Womens Clothing E-Commerce Reviews": {
+      "train_samples": 787,
+      "test_samples": 197,
+      "text_column": "Review Text",
+      "sentiment_column": "Rating"
+    },
+    "Disneylandreviews": {
+      "train_samples": 649,
+      "test_samples": 163,
+      "text_column": "Review_Text",
+      "sentiment_column": "Rating"
+    },
+    "User Reviews": {
+      "train_samples": 2100,
+      "test_samples": 526,
+      "text_column": "text",
+      "sentiment_column": "grade"
+    },
+    "Mcdonald S Reviews": {
+      "train_samples": 3060,
+      "test_samples": 766,
+      "text_column": "review",
+      "sentiment_column": "rating"
+    }
+  }
+}

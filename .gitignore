@@ -32,9 +32,9 @@ data/*.csv
 
 # Cross-domain datasets (too large for git)
 datasets/*.csv
-cross_domain_results.json
-cross_domain_plots/
-cross_domain_log.txt
+datasets/*.tsv
+# Keep cross-domain results and plots for final report
+# cross_domain_results.json and cross_domain_plots/ are needed for FINAL_PROJECT_REPORT_PART1.md
 *.zip
 
 # IDE

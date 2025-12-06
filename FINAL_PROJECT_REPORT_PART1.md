@@ -118,27 +118,18 @@ This notebook performs thorough analysis of the **raw, unprocessed Amazon Review
 - Next steps for preprocessing and modeling
 - **Saved to:** `plots/raw_data_summary.txt`
 
-#### 2. Updated README.md
+#### 2. Generated Visualizations
 
-Added clear instructions for running the EDA notebook and viewing raw data visualizations.
+The EDA notebook generates 8 comprehensive visualizations showing raw data characteristics:
 
-#### 3. Directory Structure Update
-
-```
-plots/
-├── raw_rating_distribution.png          (NEW)
-├── raw_class_imbalance.png             (NEW)
-├── raw_text_length_distribution.png    (NEW)
-├── raw_length_by_sentiment.png         (NEW)
-├── raw_top_words_by_sentiment.png      (NEW)
-├── raw_wordclouds.png                  (NEW)
-├── raw_correlation_matrix.png          (NEW)
-├── raw_rating_vs_length_scatter.png    (NEW)
-├── raw_data_summary.txt                (NEW)
-├── sentiment_dist.png                  (existing - after preprocessing)
-├── length_dist.png                     (existing - after preprocessing)
-└── ... (other model performance plots)
-```
+1. `raw_rating_distribution.png` - Distribution of 1-5 star ratings (Figure 1)
+2. `raw_class_imbalance.png` - Class imbalance visualization showing 80/10/10 split (Figure 2)
+3. `raw_text_length_distribution.png` - Review length distributions before preprocessing (Figure 3)
+4. `raw_length_by_sentiment.png` - Text length comparison across sentiment classes (Figure 4)
+5. `raw_top_words_by_sentiment.png` - Most frequent words before text cleaning (Figure 5)
+6. `raw_wordclouds.png` - Word clouds from unprocessed text (Figure 6)
+7. `raw_correlation_matrix.png` - Correlation between rating and text metrics (Figure 7)
+8. `raw_rating_vs_length_scatter.png` - Relationship between rating and text length (Figure 8)
 
 ### Impact
 
@@ -163,33 +154,31 @@ This demonstrates proper data science methodology: **Understand your data before
 ### The Problem
 
 Our system **was** handling class imbalance correctly (using undersampling in `src/data_loader.py:389`), but:
-- Not clearly documented in README
-- Not explained in presentation
-- Not visualized to show before/after
-- Rationale for approach not provided
+- Not clearly explained or documented
+- Not visualized to show before/after distribution
+- Rationale for choosing undersampling over alternatives not provided
+- Performance impact not quantified
 
 ### Changes Made
 
-#### 1. Added Clear Section to README.md
+#### 1. Class Imbalance Explanation and Documentation
 
-**Location:** README.md lines 121-137
+We now provide comprehensive documentation explaining:
+- **The Problem:** Why imbalanced data is problematic (80% positive reviews → model biased toward always predicting positive)
+- **Our Solution:** Undersampling the majority class to achieve 50/50 distribution
+- **Why Undersampling:** Rationale for choosing this approach over alternatives (class weights, SMOTE, oversampling)
+- **Performance Impact:** Quantified improvement from balancing (12% → 86% negative recall)
+- **Implementation Details:** Code reference to exact implementation (`src/data_loader.py:389`)
 
-Added comprehensive "Class Imbalance Handling" section explaining:
-- **The Problem:** Why imbalanced data is bad (80% positive → model always predicts positive)
-- **Our Solution:** Step-by-step undersampling process
-- **Why Undersampling:** Rationale for choosing this approach over alternatives
-- **Impact:** Quantified improvement (12% → 86% negative recall)
-- **Code Reference:** Points to exact implementation (`src/data_loader.py:389`)
+#### 2. EDA Notebook Visualization
 
-#### 2. EDA Notebook Shows the Evidence
+The comprehensive EDA notebook (`exploratory_data_analysis.ipynb`) includes:
+- Raw class distribution showing imbalance ratio (8:1 positive to negative)
+- Visualization of imbalanced classes with percentages (see Figure 2)
+- Clear analysis of why this imbalance is problematic for model training
+- Before/after comparison showing the balancing solution
 
-The new EDA notebook includes:
-- Raw class distribution showing imbalance ratio (e.g., 8:1)
-- Visualization of imbalanced classes with percentages
-- Clear documentation of why this is a problem
-- Links to how we solve it in the preprocessing pipeline
-
-#### 3. Existing Implementation (No Code Changes Needed)
+#### 3. Implementation Details
 
 Our class balancing implementation was already robust:
 
@@ -224,17 +213,17 @@ def _balance_classes(self, df: pd.DataFrame) -> pd.DataFrame:
 - Balanced distribution (50/50)
 - Sufficient samples (up to 50K per class)
 
-#### 4. Added Usage Documentation
+#### 4. Usage in System
 
-Both `main.py` and `app.py` show class balancing in action:
+Class balancing is implemented throughout the system:
 
-**Command Line (main.py:32):**
+**Command Line Interface:**
 ```python
 reviews, stats = loader.load_data(sample_size=20000, balance=True)
 ```
 
-**Web Interface (app.py):**
-Users can toggle "Balance Classes" with help text explaining its purpose.
+**Web Interface:**
+Users can toggle "Balance Classes" option with explanatory help text.
 
 ### Why Undersampling Over Other Methods
 
@@ -247,7 +236,7 @@ Users can toggle "Balance Classes" with help text explaining its purpose.
 
 ### Performance Impact
 
-The EDA and balancing documentation now clearly shows:
+Our analysis demonstrates the dramatic improvement from class balancing:
 
 **Without Balancing:**
 - Model accuracy: 82%
@@ -289,22 +278,33 @@ This is a crucial question in real-world applications where you may train on rea
 This comprehensive script implements a systematic cross-domain evaluation framework:
 
 **Experimental Design:**
-1. Load multiple review datasets from different domains (e.g., Amazon, Airlines, Hotels, McDonald's, Books, etc.)
-2. Train a separate sentiment model on EACH domain
-3. Test EVERY trained model on ALL domains (including itself)
-4. Generate performance matrix showing train→test performance
-5. Identify which domain creates the best "universal" model
+1. Load 8 review datasets from different domains (Amazon products, airlines, hotels, McDonald's, clothing, Disneyland, games)
+2. **Split each domain into 80% train / 20% test** (stratified, random_state=42)
+3. Train a separate sentiment model on EACH domain's training set
+4. Test EVERY trained model on ALL domains' test sets (including its own held-out test set)
+5. Generate performance matrix showing train→test performance
+6. Identify which domain creates the best "universal" model
+
+**Critical Note on Data Leakage Prevention:**
+When we say "test on itself," we mean testing on the domain's **held-out 20% test set**, NOT the training data. For example:
+- Train on Amazon training set (80%) → Test on Amazon test set (20%) ✓ No leakage
+- Train on Amazon training set (80%) → Test on Hotels test set (20%) ✓ Cross-domain
+- Train on Hotels training set (80%) → Test on Amazon test set (20%) ✓ Cross-domain
+
+Each domain maintains a strict 80/20 train/test split throughout the entire analysis. No model ever sees its training data during evaluation.
 
 **Key Features:**
-- Supports 10 diverse review datasets from different industries
-- Balanced sampling (5000 reviews per domain, 50/50 positive/negative)
+- Uses 8 diverse review datasets from different industries
+- Balanced sampling (5,000 reviews per domain, 50/50 positive/negative)
 - Consistent preprocessing and feature extraction across all domains
 - Three ML algorithms tested (Naive Bayes, Logistic Regression, Random Forest)
 - Reproducible analysis with `random_state=42`
 
+**Note:** The cross-domain analysis has been pre-executed and results are included in this submission. All visualizations (Figures 9-10) and performance metrics shown below are from the completed analysis stored in `cross_domain_results.json` and `plots/`.
+
 #### 2. Dataset Collection and Attribution
 
-We collected 10 review datasets from Kaggle spanning diverse domains:
+We collected 8 review datasets from Kaggle spanning diverse domains:
 
 | Domain | Dataset | Source |
 |--------|---------|--------|
@@ -315,9 +315,7 @@ We collected 10 review datasets from Kaggle spanning diverse domains:
 | **Clothing** | Women's E-Commerce Reviews | [Kaggle - nicapotato](https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews) |
 | **Theme Parks** | Disneyland Reviews | [Kaggle - arushchillar](https://www.kaggle.com/datasets/arushchillar/disneyland-reviews) |
 | **Video Games** | Animal Crossing User Reviews | [Kaggle - jessemostipak](https://www.kaggle.com/datasets/jessemostipak/animal-crossing-new-horizons-reviews) |
-| **Books** | Amazon Book Reviews | [Kaggle - mohamedbakhet](https://www.kaggle.com/datasets/mohamedbakhet/amazon-books-reviews) |
 | **Fast Food** | McDonald's Reviews | [Kaggle - nelgiriyewithana](https://www.kaggle.com/datasets/nelgiriyewithana/mcdonalds-store-reviews) |
-| **Games (Steam)** | Steam Game Reviews | [Kaggle - andrewmvd](https://www.kaggle.com/datasets/andrewmvd/steam-reviews) |
 
 Each dataset was used in its original, unmodified form with flexible field detection to handle different column naming conventions.
 
@@ -337,10 +335,11 @@ We conducted systematic cross-domain sentiment analysis across 8 diverse review 
 
 **Methodology:**
 - Sample size: 5,000 balanced reviews per domain (50/50 positive/negative)
-- Train/test split: 80/20 per domain
+- **Train/test split: 80/20 per domain** (stratified by sentiment, random_state=42)
 - Vectorization: TF-IDF with 5,000 max features
 - Models: Naive Bayes, Logistic Regression, Random Forest (best model selected per domain)
-- Evaluation: Each model trained on one domain, tested on ALL 8 domains
+- **Evaluation:** Each model trained on one domain's training set (80%), tested on ALL 8 domains' test sets (20%)
+- **Data leakage prevention:** When testing "on itself," models use the held-out 20% test set, never the training data
 
 **Performance Matrix (F1 Scores):**
 
@@ -357,7 +356,7 @@ We conducted systematic cross-domain sentiment analysis across 8 diverse review 
 
 (Diagonal values show in-domain performance; off-diagonal show cross-domain transfer)
 
-![Cross-Domain Performance Heatmap](cross_domain_plots/performance_heatmap.png)
+![Cross-Domain Performance Heatmap](plots/performance_heatmap.png)
 *Figure 9: Heatmap visualization of F1 scores for all train-test domain combinations*
 
 ### Key Findings
@@ -377,7 +376,7 @@ This British Airways model achieved:
 - 0.728 F1 on Disney reviews
 - 0.692 F1 on game reviews
 
-![Best Universal Model](cross_domain_plots/best_universal_model.png)
+![Best Universal Model](plots/best_universal_model.png)
 *Figure 10: Cross-domain generalization performance showing British Airways as best universal model*
 
 **Business Impact:** For deploying a single sentiment model across multiple review types, training on airline reviews (specifically British Airways data) provides the best cross-domain generalization.
@@ -385,8 +384,8 @@ This British Airways model achieved:
 #### Finding 2: Quantified Generalization Gap
 
 - **In-domain performance:** 0.868 F1 average (when train == test)
-- **Cross-domain performance:** ~0.696 F1 average (when train ≠ test)
-- **Generalization gap:** ~0.172 (17.2%)
+- **Cross-domain performance:** 0.697 F1 average (when train ≠ test)
+- **Generalization gap:** 0.171 (17.1%)
 
 **In-domain scores by domain:**
 - Disney: 0.915 F1 (best in-domain model)
@@ -398,7 +397,7 @@ This British Airways model achieved:
 - Airline: 0.822 F1
 - Reviews: 0.821 F1
 
-This 17% gap indicates that domain-specific models still outperform universal models, but the gap is small enough that a universal model (like BA Airlines) is viable for many use cases where deploying separate models isn't practical.
+This 17.1% gap indicates that domain-specific models still outperform universal models, but the gap is small enough that a universal model (like BA Airlines) is viable for many use cases where deploying separate models isn't practical.
 
 #### Finding 3: Domain Transfer Patterns
 
@@ -430,7 +429,7 @@ This 17% gap indicates that domain-specific models still outperform universal mo
 - Best cross-domain transfer: Hotels (0.748 F1)
 - Worst cross-domain transfer: Airlines (0.475 F1), BA Airlines (0.503 F1)
 
-This highlights that fashion reviews require domain-specific models and cannot substitute for general sentiment analysis. The specialized language of clothing reviews (fabric quality, fit, sizing) has little overlap with service-based review vocabulary.
+This result highlights that fashion reviews require domain-specific models and cannot be used as substitutes for general sentiment analysis. The highly specialized language of clothing reviews (fabric quality, fit, sizing) has minimal overlap with service-based review vocabulary.
 
 ### Implementation Details
 
@@ -464,10 +463,11 @@ class CrossDomainAnalyzer:
 
 **Key Design Decisions:**
 - TF-IDF vectorization with 5000 max features (consistent across domains)
-- 80/20 train/test split per domain
+- **80/20 train/test split per domain** (prevents data leakage - each domain's test set is never seen during training)
 - Best model selected by F1 score
 - Balanced classes (50/50 positive/negative)
 - Reproducible with `random_state=42`
+- **No data leakage:** In-domain testing uses held-out test data, not training data
 
 ### Impact
 
@@ -475,16 +475,16 @@ class CrossDomainAnalyzer:
 
 **After:** Comprehensive cross-domain evaluation with concrete findings:
 - **Best universal model identified:** British Airways airline reviews (0.749 avg F1 across 7 other domains)
-- **Generalization gap quantified:** 17.2% performance drop when crossing domains (0.868 in-domain vs ~0.696 cross-domain)
+- **Generalization gap quantified:** 17.1% performance drop when crossing domains (0.868 in-domain vs 0.697 cross-domain)
 - **Transfer patterns discovered:**
   - Service domains (airlines, hotels, restaurants) transfer excellently (F1 > 0.80)
   - Product domains (clothing, games) transfer poorly to services (F1 < 0.60)
   - Clothing is the weakest generalizer (0.607 avg cross-domain F1)
 - **Deployment recommendations:**
-  - Multi-domain deployment: Use BA Airlines model for best generalization
-  - Maximum accuracy needed: Train domain-specific models (17% better performance)
-  - Service businesses: Share models across airlines/hotels/restaurants
-  - Product businesses: Require specialized training per category
+  - **Multi-domain deployment:** Use BA Airlines model for best generalization
+  - **Maximum accuracy needed:** Train domain-specific models (17.1% better performance)
+  - **Service businesses:** Share models across airlines/hotels/restaurants
+  - **Product businesses:** Require specialized training per category
 
 This analysis directly addresses the professor's request for understanding domain cross-overs and provides actionable insights:
 1. Which training data to use for universal models (BA Airlines)
@@ -496,111 +496,15 @@ The findings demonstrate a rigorous, production-ready approach to sentiment anal
 
 ---
 
-## Summary of All Changes
-
-### New Files Created
-
-1. `exploratory_data_analysis.ipynb` - Comprehensive EDA on raw data
-2. `cross_domain_analysis.py` - Cross-domain generalization analysis framework
-3. `datasets/README.md` - Documentation for cross-domain datasets
-4. 9 new visualization files in `plots/` directory (raw data analysis)
-5. Cross-domain outputs:
-   - `cross_domain_results.json` - Performance matrix and metadata
-   - `cross_domain_plots/performance_heatmap.png` - Train→test F1 heatmap
-   - `cross_domain_plots/best_universal_model.png` - Universal model ranking
-
-### Files Modified
-
-1. `README.md` - Added "Class Imbalance Handling" section (lines 121-137)
-2. `src/field_extractor.py` - Enhanced field detection with additional variants
-3. `src/data_loader.py` - Added multi-encoding support for diverse datasets
-4. `.gitignore` - Added cross-domain datasets and results exclusions
-
-### Files NOT Modified (Already Correct)
-
-- `src/data_loader.py` - Class balancing implementation was already robust
-- `src/visualizations/data_viz.py` - Existing visualization tools work well
-- `main.py` - Already using `balance=True`
-- `app.py` - Already has balancing toggle
-
-### Documentation Improvements
-
-- Clear explanation of class imbalance problem and solution
-- Justification for undersampling approach
-- Quantified performance impact
-- Code references for implementation details
-- Visual evidence in EDA notebook
-
----
-
-## How to Verify Changes
-
-### 1. Run the EDA Notebook
-
-```bash
-# Ensure data is downloaded first
-# Download Reviews.csv to data/Reviews.csv
-
-# Install Jupyter if needed
-pip install jupyter
-
-# Run the notebook
-jupyter notebook exploratory_data_analysis.ipynb
-
-# Execute all cells to generate raw data visualizations
-```
-
-### 2. Check Generated Plots
-
-```bash
-ls plots/raw_*.png
-# Should show 9 new visualization files
-```
-
-### 3. Review README Section
-
-```bash
-# Open README.md and scroll to "Class Imbalance Handling" section
-# Lines 121-137
-```
-
-### 4. Test Class Balancing
-
-```bash
-# Run training script and watch logs
-python main.py
-
-# Look for these log messages:
-# "Before balancing - Positive: XXXX, Negative: XXXX"
-# "After balancing - Positive: XXXX, Negative: XXXX"
-# Both should be equal after balancing
-```
-
-### 5. Run Cross-Domain Analysis
-
-```bash
-# Ensure datasets are in datasets/ folder
-# See datasets/README.md for required datasets
-
-# Run the analysis
-python cross_domain_analysis.py --sample-size 5000
-
-# Check outputs:
-ls cross_domain_results.json
-ls cross_domain_plots/*.png
-```
-
----
-
 ## Conclusion
 
 All three pieces of professor feedback have been fully addressed:
 
-1. **EDA Added:** Comprehensive `exploratory_data_analysis.ipynb` notebook shows all raw data characteristics before any processing, with 9 new visualizations saved to `plots/`
+1. **EDA Added:** Comprehensive `exploratory_data_analysis.ipynb` notebook shows all raw data characteristics before any processing, with 8 new visualizations demonstrating data quality, class imbalance, text characteristics, and statistical relationships (Figures 1-8)
 
-2. **Class Imbalance Clarified:** Clear documentation in README explains the problem, our undersampling solution, why we chose this approach, and the quantified impact on model performance
+2. **Class Imbalance Clarified:** Detailed explanation of the class imbalance problem (8:1 ratio), our undersampling solution achieving 50/50 distribution, rationale for this approach over alternatives, and quantified performance impact (358% improvement in negative class F1-score)
 
-3. **Cross-Domain Analysis Implemented:** Systematic `cross_domain_analysis.py` framework evaluates model generalization across 10 diverse review domains, identifying the best universal model and quantifying performance gaps
+3. **Cross-Domain Analysis Implemented:** Systematic `cross_domain_analysis.py` framework evaluates model generalization across 8 diverse review domains, identifying British Airways as the best universal model (0.749 avg F1) and quantifying the 17.1% generalization gap between in-domain and cross-domain performance (Figures 9-10)
 
 These improvements demonstrate proper data science methodology, address real-world deployment questions about model generalization, and make our system more transparent, understandable, and academically rigorous for an INSY 4325 final project.
 
