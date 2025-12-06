@@ -104,20 +104,45 @@ jupyter notebook exploratory_data_analysis.ipynb
 
 **Note:** The word frequency plots in this notebook show *raw unprocessed text*, so you'll see common stopwords like "the", "and", "is" dominating the charts. This is expected! The more interesting word frequencies and visualizations appear after text preprocessing when you run the training pipeline in step 7.
 
-### 7. Verify Installation
-Test the training pipeline:
+### 7. Train Models
+Train all three ML models and generate performance visualizations:
 ```bash
 python main.py
 ```
 
-This should train models and generate plots in the `plots/` folder. Open this folder on your laptop and verify the visuals.
+**What to expect:**
+- **Duration:** ~2-3 minutes depending on your computer
+- **Console output:** You'll see progress messages for:
+  - Loading and preprocessing data (removing HTML, stopwords, etc.)
+  - Class balancing (equalizing positive/negative reviews)
+  - Training each model (Naive Bayes, Logistic Regression, Random Forest)
+  - Generating performance metrics and visualizations
+- **Generated files:**
+  - `artifacts/` folder: Trained model files (.pkl) and vectorizer
+  - `plots/` folder: Performance visualizations including:
+    - Confusion matrices for each model
+    - ROC curves comparison
+    - Metrics comparison bar chart
+    - Sentiment distribution
+    - Text length distribution
+    - Word clouds (positive/negative, after preprocessing)
+    - Model dashboard summary
+- **Final output:** Summary showing which model performed best (typically Random Forest or Logistic Regression)
 
-### 8. Run the Application
+**Verify success:** Open the `plots/` folder and check that visualizations were generated.
+
+### 8. Launch the Web Application
+Start the interactive prediction interface:
 ```bash
 streamlit run app.py
 ```
 
-The app will open in your browser at `http://localhost:8501`
+**What to expect:**
+- The app automatically opens in your browser at `http://localhost:8501`
+- **Two main pages:**
+  1. **Train Models:** Upload datasets, configure training, compare algorithms
+  2. **Make Predictions:** Enter text or upload CSV for sentiment prediction
+- **To stop:** Press `Ctrl+C` in the terminal
 
 ## Project Structure
 ```
@@ -144,143 +169,46 @@ The app will open in your browser at `http://localhost:8501`
 
 ## Dataset
 
-### Primary Dataset (Used for Training)
+**Primary Dataset:** [Amazon Product Reviews](https://www.kaggle.com/datasets/arhamrumi/amazon-product-reviews)
+- ~500,000 reviews across multiple product categories
+- Columns: Text (review content), Score (1-5 star ratings)
+- Download and place `Reviews.csv` in the `data/` folder (see step 5 above)
+- **Note:** Dataset NOT included in repo due to size
 
-**Amazon Product Reviews**
-- **Source:** [Kaggle - Amazon Product Reviews](https://www.kaggle.com/datasets/arhamrumi/amazon-product-reviews)
-- **Size:** ~500,000 reviews across multiple product categories
-- **Columns:** Text (review content), Score (1-5 star ratings)
-- **Download:** Place the `Reviews.csv` file in the `data/` folder
-- **Note:** Dataset is NOT included in this repo due to size
+### Multi-Dataset Support
 
-**To use this dataset:**
-```bash
-mkdir data
-# Download Reviews.csv from the Kaggle link above
-# Place it in: data/Reviews.csv
-```
+The system automatically detects and works with various review dataset formats:
+- **Text columns:** Tries 12+ common names (text, review, comment, content, etc.)
+- **Rating columns:** Tries 11+ common names (rating, score, sentiment, etc.)
+- **Rating scales:** Supports 1-5 stars, 1-10, 0-100, text labels (positive/negative), binary (0/1)
 
-### Compatible Dataset Formats
+**Tested on:** Amazon, hotel, airline, restaurant, theme park, video game, and clothing reviews.
 
-This system works with multiple review dataset formats through automatic field detection:
+## Using the Web Application
 
-**Tested Datasets:**
-- **Amazon Reviews** - Text/review columns, Score/rating columns
-- **Hotel Reviews** - reviews.text, reviews.rating
-- **Airline Reviews** - Review, Overall_Rating
-- **Restaurant Reviews** - review/comment, rating/stars
-- **Theme Park Reviews** - Review_Text, Rating
+After launching the app (step 8), you can:
 
-**How it works:**
-- Automatically tries 12+ common text field names (text, review, comment, content, etc.)
-- Automatically tries 11+ common rating field names (rating, score, sentiment, overall, etc.)
-- Falls back to column position if names don't match
+**Train Models Page:**
+1. Upload any review CSV dataset (auto-detects columns)
+2. Configure sample size and vectorization method
+3. Click "Train All Models" to compare Naive Bayes, Logistic Regression, and Random Forest
+4. View performance metrics and visualizations
+5. Select best model for deployment
 
-**Supported Rating Scales:**
-- 1-5 stars: 1-2=negative, 3=neutral (skipped), 4-5=positive
-- 1-10 scale: 1-4=negative, 5-6=neutral, 7-10=positive
-- 0-100 percentage: 0-49=negative, 50-69=neutral, 70-100=positive
-- Text labels: "positive", "negative", "pos", "neg"
-- Binary: 0/1, True/False
+**Make Predictions Page:**
+1. Enter text directly or upload a CSV file
+2. Click "Predict" to get sentiment classification
+3. Download results if using batch predictions
 
-### Dataset Validation
+## Advanced: Cross-Domain Analysis (Optional)
 
-The system validates datasets before training and provides clear error messages:
-- Checks text field contains actual text (not numeric IDs)
-- Verifies rating field uses a supported format
-- Ensures minimum data quality and quantity
-- Shows helpful suggestions if dataset is incompatible
+Test how models generalize across different review types:
 
-### Class Imbalance Handling
-
-**The Problem:** Review datasets are heavily imbalanced - typically 80% positive, 10% negative, 10% neutral. This causes models to always predict "positive" and miss negative reviews.
-
-**Our Solution:** Undersampling approach (`src/data_loader.py:389`)
-1. Count positive and negative reviews after removing neutrals
-2. Find the smaller class size (usually negative reviews)
-3. Randomly sample equal amounts from both classes to create 50/50 balance
-4. Uses `random_state=42` for reproducibility
-
-**Why Undersampling?**
-- We have enough data (500K+ reviews) to afford discarding excess positives
-- Avoids creating duplicate examples (no overfitting)
-- Faster training with balanced, smaller dataset
-- Real data only - no synthetic examples
-
-**Impact:** Without balancing, negative recall is ~12%. With balancing, negative recall jumps to ~86%. This ensures the model catches negative reviews effectively.
-
-## Usage
-
-### Train Models
-1. Go to "Train Models" page
-2. Upload any review CSV dataset (system auto-detects columns)
-3. Configure parameters (sample size, vectorization method)
-4. Click "Train All Models"
-5. View performance comparison and visualizations
-6. Select best model for deployment
-
-### Make Predictions
-1. Go to "Make Predictions" page
-2. Enter text or upload CSV
-3. Click "Predict"
-4. Download results
-
-
-## Cross-Domain Analysis (Optional)
-
-The `datasets/` folder supports cross-domain sentiment analysis experiments:
-
-1. Add ~10 review CSV files from different domains (amazon, hotels, restaurants, etc.)
+1. Place multiple review CSV files in the `datasets/` folder
 2. Run: `python cross_domain_analysis.py --sample-size 5000`
-3. System trains on each domain and tests across all others
-4. Results: `cross_domain_results.json` and plots in `cross_domain_plots/`
+3. System trains on each domain and tests on all others
+4. View results in `cross_domain_results.json` and `cross_domain_plots/`
 
-**Requirements:** Each CSV needs text/review and rating/sentiment columns (auto-detected). Supports different column names and rating scales.
-
-## Requirements
-- Python 3.8+
-- See `requirements.txt` for packages
-
----
-
-## Problem Domain: Detailed Description
-
-### Business Context
-Online retailers like Amazon receive millions of product reviews annually. Understanding customer sentiment at scale is critical for:
-
-**Strategic Decision Making:**
-- Product development priorities based on pain points
-- Inventory management (stock popular items, discontinue poorly-rated ones)
-- Marketing message optimization
-- Competitive analysis
-
-**Operational Efficiency:**
-- Automated routing of negative reviews to customer service
-- Quality assurance alerts for products with declining sentiment
-- Fake review detection (when paired with other signals)
-
-**Customer Experience:**
-- Helping shoppers make informed purchase decisions
-- Highlighting product strengths in search results
-- Identifying and rewarding helpful reviewers
-
-### Why Machine Learning?
-Manual review analysis doesn't scale. A human can read ~50 reviews/hour. This system can classify 10,000+ reviews/minute after training, with consistent accuracy.
-
-### Dataset Justification
-Review datasets (e-commerce, hospitality, travel) are ideal for sentiment analysis because:
-1. **Rich text data:** Customers write detailed, authentic opinions
-2. **Ground truth labels:** Star ratings provide reliable sentiment labels
-3. **High volume:** Sufficient data for training robust models
-4. **Real-world applicability:** Directly useful across multiple industries
-5. **Variety:** Multiple domains and rating scales test system flexibility
-6. **Transferable insights:** Model trained on one domain can inform understanding of others
-
-### Technical Challenges Addressed
-1. **Imbalanced classes:** More 5-star than 1-star reviews → Solution: Class balancing
-2. **Noisy text:** HTML, typos, abbreviations → Solution: Text preprocessing pipeline
-3. **Variable length:** 10-1000+ characters → Solution: TF-IDF handles variable length
-4. **Context dependence:** Sarcasm, negation → Solution: Bigrams capture some context
-5. **Model selection:** Which algorithm performs best? → Solution: Train and compare all 3
+See `FINAL_PROJECT_REPORT_PART1.md` for detailed cross-domain analysis results.
 
 ---
