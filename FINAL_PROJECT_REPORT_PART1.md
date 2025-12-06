@@ -353,7 +353,7 @@ We conducted systematic cross-domain sentiment analysis across 8 diverse review 
 | **Games** | 0.738 | 0.721 | 0.744 | 0.695 | 0.686 | 0.738 | 0.873 | 0.727 |
 | **McDonald's** | 0.715 | 0.662 | 0.693 | 0.859 | 0.687 | 0.725 | 0.644 | 0.882 |
 
-(Diagonal values show in-domain performance; off-diagonal show cross-domain transfer)
+(Diagonal values show in-domain performance; off-diagonal show cross-domain transfer. This means the green squares outside the diagon are the real impressive results!)
 
 ![Cross-Domain Performance Heatmap](plots/performance_heatmap.png)
 *Figure 9: Heatmap visualization of F1 scores for all train-test domain combinations*
