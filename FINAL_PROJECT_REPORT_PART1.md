@@ -339,7 +339,6 @@ We conducted systematic cross-domain sentiment analysis across 8 diverse review 
 - Vectorization: TF-IDF with 5,000 max features
 - Models: Naive Bayes, Logistic Regression, Random Forest (best model selected per domain)
 - **Evaluation:** Each model trained on one domain's training set (80%), tested on ALL 8 domains' test sets (20%)
-- **Data leakage prevention:** When testing "on itself," models use the held-out 20% test set, never the training data
 
 **Performance Matrix (F1 Scores):**
 
