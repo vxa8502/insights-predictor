@@ -58,7 +58,41 @@ Create a `data/` folder and download the Amazon Reviews dataset:
 mkdir data
 ```
 
-Download `Reviews.csv` from [Kaggle](https://www.kaggle.com/datasets/yasserh/amazon-product-reviews-dataset) and place it in the `data/` folder as `data/Reviews.csv`.
+**Download the dataset:**
+1. Go to [Kaggle - Amazon Product Reviews](https://www.kaggle.com/datasets/arhamrumi/amazon-product-reviews)
+2. Click the "Download" button (you may need to create a free Kaggle account)
+3. The file will download to your Downloads folder as `archive.zip` or `amazon-product-reviews.zip`
+
+**Move the dataset to the project folder:**
+
+For **Windows** (PowerShell):
+```bash
+# Unzip the downloaded file (replace 'archive.zip' with actual filename if different)
+Expand-Archive -Path "$env:USERPROFILE\Downloads\archive.zip" -DestinationPath "$env:USERPROFILE\Downloads\amazon-reviews"
+
+# Move the CSV file to the data folder
+Move-Item -Path "$env:USERPROFILE\Downloads\amazon-reviews\Reviews.csv" -Destination "data\Reviews.csv"
+```
+
+For **Mac/Linux**:
+```bash
+# Unzip the downloaded file (replace 'archive.zip' with actual filename if different)
+unzip ~/Downloads/archive.zip -d ~/Downloads/amazon-reviews
+
+# Move the CSV file to the data folder (run this from the insights-predictor directory)
+mv ~/Downloads/amazon-reviews/Reviews.csv data/Reviews.csv
+```
+
+**Verify the file is in the right place:**
+```bash
+# Windows
+dir data\Reviews.csv
+
+# Mac/Linux
+ls -lh data/Reviews.csv
+```
+
+You should see the file listed with a size of approximately 280-300 MB.
 
 ### 6. Run Exploratory Data Analysis (Optional)
 View raw data analysis before training:
